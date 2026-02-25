@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ExternalLink } from "lucide-react";
+
+// Replace this with your Google Drive preview URL
+const RESUME_EMBED_URL = "https://docs.google.com/document/d/1tVTpTm9koVws2ZExwKdcTEVmHkwd2C0AYmQEV-F1ldM/preview";
+const RESUME_DOWNLOAD_URL = "https://docs.google.com/document/d/1tVTpTm9koVws2ZExwKdcTEVmHkwd2C0AYmQEV-F1ldM/view";
 
 export default function Resume() {
   return (
@@ -10,25 +14,58 @@ export default function Resume() {
           <Link to="/" className="font-serif text-2xl font-bold text-secondary">
             Rachelle Chung
           </Link>
-          <Link
-            to="/"
-            className="text-sm font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Back
-          </Link>
+          <div className="flex items-center gap-4">
+            <a
+              href={RESUME_DOWNLOAD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2"
+            >
+              Open in Drive
+              <ExternalLink className="w-4 h-4" />
+            </a>
+            <Link
+              to="/"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              Back
+            </Link>
+          </div>
         </div>
       </nav>
 
-      {/* Resume Viewer */}
-      <div className="pt-20 h-screen">
-        <object
-          data="https://docs.google.com/document/d/1tVTpTm9koVws2ZExwKdcTEVmHkwd2C0AYmQEV-F1ldM/preview"
-          type="application/pdf"
-          className="w-full h-full"
+      {/* Resume Viewer — desktop */}
+      <div className="pt-16 h-screen hidden sm:block">
+        <iframe
+          src={RESUME_EMBED_URL}
+          className="w-full h-full border-0"
+          title="Rachelle Chung Resume"
+          allow="autoplay"
+        />
+      </div>
+
+      {/* Mobile fallback — shown only on small screens */}
+      <div className="sm:hidden flex flex-col items-center justify-center min-h-screen px-6 text-center gap-6">
+        <p className="text-lg font-serif font-bold text-secondary">
+          View my resume
+        </p>
+        <p className="text-muted-foreground text-sm">
+          PDF preview isn't supported on mobile browsers. Open it directly in Google Drive instead.
+        </p>
+        <a
+          href={RESUME_DOWNLOAD_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium flex items-center gap-2 hover:bg-primary/90 transition-colors"
         >
-          <p>Unable to display PDF. <a href="resume.pdf">Download instead</a></p>
-        </object>
+          Open Resume
+          <ExternalLink className="w-4 h-4" />
+        </a>
+        <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+          <ChevronLeft className="w-4 h-4" />
+          Back to portfolio
+        </Link>
       </div>
     </div>
   );
