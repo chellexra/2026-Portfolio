@@ -341,8 +341,8 @@ export default function Index() {
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8">
                 Crafting meaningful and accessible digital experiences through research, design,
-                and thoughtful problem-solving. Currently exploring opportunities in
-                Product Management and UX Design/Research.
+                and thoughtful problem-solving. Currently exploring opportunities in Software Development,
+                Product Management or UX Design/Research.
               </p>
             </div>
           </div>
