@@ -41,27 +41,41 @@ interface GalleryItem {
   category: "UI/UX" | "Photography" | "Graphics" | "Front-End Dev" | "Full-Stack Dev" | "Product Management" | "Project Management";
   tags?: string[];
   githubUrl?: string;
+  videoUrl?: string;
 }
 
 const galleryItems: GalleryItem[] = [
+  {
+    title: "Good Timers",
+    description: "A term-long HCI grop project exploring whether our prototype improves the walking route planning process for students on breaks. Collected real-time data, conducted analysis in R Studio, and formed conclusions.",
+    image: "/images/goodtimersapp.png",
+    category: "UI/UX",
+    tags: ["User Research", "HCI", "Data Analysis", "R Studio", "Prototyping"],
+    videoUrl: "https://drive.google.com/file/d/1BE-9zynigpH7cmRumOxx77Wmy-J9ZsmUUXDhKLOjjEo/preview",
+    githubUrl: "https://goodtimers.github.io/"
+  },
   {
     title: "Moodie",
     description: "Letting users select curated playlists based on their emotional state.",
     image: "https://cdn.builder.io/api/v1/image/assets%2F2fee5fb64ed040cfbb079c9f4e5444d0%2F4ff4a8ec420e4e40a18042ddd3838a84",
     category: "UI/UX",
+    tags: ["User Research", "Prototyping", "Figma"],
+    githubUrl: "https://github.com/chellexra/moodie-webpage"
   },
   {
     title: "Hey Neighbour",
     description: "Our web app connects volunteers with neighbors in need, whether it's help with groceries, yard work, or just a friendly conversation.",
     image: "https://cdn.builder.io/api/v1/image/assets%2F2fee5fb64ed040cfbb079c9f4e5444d0%2F1fb28e0038514a6b84c61fd94f7ac5e5",
     category: "UI/UX",
+    tags: ["Front-End Dev", "Prototyping", "Figma"],
+    githubUrl: "https://github.com/chellexra/HeyNeighbour"
   },
   {
     title: "Dine Finder",
     description: "Restaurant discovery app designed around user needs, from initial research to high-fidelity prototype.",
     image: "/images/dineFinder.png",
     category: "UI/UX",
-    tags: ["Hi-fi Prototype", "User Interviews", "Conceptual Models"],
+    tags: ["Med-fi Prototype", "User Interviews", "Conceptual Models"],
   },
   {
     title: "The Last Laugh",
@@ -69,6 +83,7 @@ const galleryItems: GalleryItem[] = [
     image: "/images/TheLastLaugh.png",
     category: "Graphics",
     tags: ["Game Design", "Sprites", "Storytelling"],
+    githubUrl: "https://github.com/chellexra/The_Last_Laugh-Vancouver_GameJam_2024",
   },
   {
     title: "Virtual Closet",
@@ -159,10 +174,18 @@ function PortfolioGallery() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-secondary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="flex items-center gap-2 text-background text-sm font-medium tracking-wide">
-                    <ZoomIn size={16} /> View
-                  </span>
-                </div>
+  {item.videoUrl ? (
+    <div className="w-14 h-14 rounded-full bg-background/90 flex items-center justify-center shadow-lg">
+      <svg viewBox="0 0 24 24" className="w-6 h-6 text-secondary fill-current ml-1" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="5,3 19,12 5,21" />
+      </svg>
+    </div>
+  ) : (
+    <span className="flex items-center gap-2 text-background text-sm font-medium tracking-wide">
+      <ZoomIn size={16} /> View
+    </span>
+  )}
+</div>
               </div>
               <div className="p-5">
                 <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide mb-3 ${CATEGORY_COLORS[item.category]}`}>
@@ -218,7 +241,17 @@ function PortfolioGallery() {
               <X size={16} />
             </button>
             <div className="aspect-video bg-accent/10 overflow-hidden">
-              <img src={lightbox.image} alt={lightbox.title} className="w-full h-full object-cover" />
+            {
+              lightbox.videoUrl ? (
+                <iframe
+                  src={lightbox.videoUrl}
+                  className="w-full h-full border-0"
+                  allow="autoplay"
+                  title={lightbox.title}
+                  />
+              ): (
+                <img src={lightbox.image} alt={lightbox.title} className="w-full h-full object-cover" />
+              )}
             </div>
             <div className="p-6">
               <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide mb-3 ${CATEGORY_COLORS[lightbox.category]}`}>
